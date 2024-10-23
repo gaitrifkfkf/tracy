@@ -1,0 +1,260 @@
+<html><head><base href="/" />
+<title>Filipino Name Generator | Pangalan</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lora:ital@0;1&family=Poppins:wght@400;700&display=swap');
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, 
+      #FFB7C5 0%,   /* Light Pink */
+      #FF69B4 50%,  /* Hot Pink */
+      #FFB7C5 100%  /* Light Pink */
+    );
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Cpath d="M50 20c0 0 -15 10 -15 25s15 25 15 25 15 -10 15 -25 -15 -25 -15 -25zM50 30c0 0 10 7 10 15s-10 15 -10 15 -10 -7 -10 -15 10 -15 10 -15z" fill="%23FFE4E1" opacity="0.3"/%3E%3C/svg%3E');
+    background-size: 100px 100px;
+    min-height: 100vh;
+    padding: 2rem;
+    color: #2c3e50;
+    position: relative;
+    animation: tulipSway 10s infinite ease-in-out;
+  }
+
+  @keyframes tulipSway {
+    0% { background-position: 0 0; }
+    50% { background-position: 50px 25px; }
+    100% { background-position: 0 0; }
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(255, 105, 180, 0.2);
+    border: 1px solid rgba(255, 182, 193, 0.3);
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #FF1493;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.2);
+  }
+
+  .subtitle {
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 2rem;
+    font-family: 'Lora', serif;
+    color: #FF69B4;
+  }
+
+  .name-display {
+    text-align: center;
+    font-size: 2rem;
+    margin: 2rem 0;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(255, 182, 193, 0.2);
+    border: 1px solid rgba(255, 182, 193, 0.3);
+  }
+
+  .controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+
+  button {
+    background: #FF69B4;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(255, 105, 180, 0.3);
+  }
+
+  button:hover {
+    background: #FF1493;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 105, 180, 0.4);
+  }
+
+  .gender-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .gender-btn {
+    background: #FFB6C1;
+  }
+
+  .gender-btn.active {
+    background: #FF69B4;
+  }
+
+  .name-history {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #FFB7C5;
+  }
+
+  .history-title {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #FF69B4;
+  }
+
+  .history-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .history-item {
+    background: #FFF0F5;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    border: 1px solid rgba(255, 182, 193, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .history-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(255, 105, 180, 0.2);
+  }
+
+  /* Add decorative tulips to corners */
+  .container::before,
+  .container::after {
+    content: '🌷';
+    position: absolute;
+    font-size: 2rem;
+  }
+
+  .container::before {
+    top: -10px;
+    left: -10px;
+    transform: rotate(-45deg);
+  }
+
+  .container::after {
+    bottom: -10px;
+    right: -10px;
+    transform: rotate(135deg);
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Pangalan</h1>
+    <p class="subtitle">Filipino Name Generator</p>
+    
+    <div class="gender-toggle">
+      <button class="gender-btn active" data-gender="female">Female</button>
+      <button class="gender-btn" data-gender="male">Male</button>
+    </div>
+
+    <div class="name-display">Click generate to create a name</div>
+    
+    <div class="controls">
+      <button id="generateBtn">Generate Name</button>
+      <button id="copyBtn">Copy to Clipboard</button>
+    </div>
+
+    <div class="name-history">
+      <h3 class="history-title">Previously Generated Names</h3>
+      <ul class="history-list"></ul>
+    </div>
+  </div>
+
+<script>
+const femaleFirstNames = [
+  'Maria', 'Ana', 'Rosa', 'Angela', 'Lorena', 'Isabella', 'Carmen', 'Sofia',
+  'Lucia', 'Elena', 'Gabriela', 'Victoria', 'Mariana', 'Diana', 'Teresa',
+  'Josefina', 'Catalina', 'Juana', 'Beatriz', 'Clara'
+];
+
+const maleFirstNames = [
+  'Juan', 'Jose', 'Miguel', 'Antonio', 'Carlos', 'Francisco', 'Pedro', 'Luis',
+  'Manuel', 'Ricardo', 'Diego', 'Fernando', 'Eduardo', 'Alejandro', 'Roberto',
+  'Gabriel', 'Daniel', 'Rafael', 'Martin', 'Marco'
+];
+
+const lastNames = [
+  'Santos', 'Reyes', 'Cruz', 'Bautista', 'Ocampo', 'Garcia', 'Mendoza', 'Torres',
+  'Flores', 'Gonzales', 'Ramos', 'Aquino', 'Castro', 'Gutierrez', 'Marcos',
+  'Morales', 'Navarro', 'Perez', 'Rodriguez', 'Rivera', 'dela Cruz', 'del Rosario',
+  'de Guzman', 'de Leon', 'de los Santos'
+];
+
+let currentGender = 'female';
+const history = [];
+const maxHistory = 10;
+
+function generateName() {
+  const firstNames = currentGender === 'female' ? femaleFirstNames : maleFirstNames;
+  const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+  const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+  const middleInitial = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+  
+  const fullName = `${firstName} ${middleInitial}. ${lastName}`;
+  document.querySelector('.name-display').textContent = fullName;
+  
+  // Add to history
+  history.unshift(fullName);
+  if (history.length > maxHistory) {
+    history.pop();
+  }
+  updateHistory();
+}
+
+function updateHistory() {
+  const historyList = document.querySelector('.history-list');
+  historyList.innerHTML = history.map(name => `<li class="history-item">${name}</li>`).join('');
+}
+
+function copyToClipboard() {
+  const name = document.querySelector('.name-display').textContent;
+  navigator.clipboard.writeText(name).then(() => {
+    alert('Name copied to clipboard!');
+  });
+}
+
+// Event Listeners
+document.getElementById('generateBtn').addEventListener('click', generateName);
+document.getElementById('copyBtn').addEventListener('click', copyToClipboard);
+
+// Gender toggle
+document.querySelectorAll('.gender-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    document.querySelectorAll('.gender-btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    currentGender = e.target.dataset.gender;
+  });
+});
+
+// Generate initial name
+generateName();
+</script>
+</body></html>
